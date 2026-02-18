@@ -51,17 +51,28 @@ def func7(arr: np.ndarray):
 def func8() -> np.ndarray:
     arr = np.zeros((8, 8))
     arr[1::2, 0::2] = 1  # odd rows and even cols
-    arr[0::2, 1::2] = 1 # even rows and odd cols
+    arr[0::2, 1::2] = 1  # even rows and odd cols
     return arr
 
+
 def func9() -> np.ndarray:
-    arr = np.zeros((5,5))
+    arr = np.zeros((5, 5))
     arr[0, :] = 1
     arr[-1, :] = 1
     arr[:, 0] = 1
     arr[:, -1] = 1
     return arr
-    
+
+
+def func10(arr: np.ndarray, div: int) -> np.ndarray:
+    if len(arr.shape) > 1 and arr.shape[0] % div != 0:
+        raise ValueError("[ERROR]: Expected 1D array of elems!")
+    res = np.zeros((div, div))
+    for row in range(div):
+        res[row, :] = arr[row * div : (row + 1) * div]
+    return res
+
+
 def main():
     print("==FUNC1==")
     arr = func1()
@@ -89,6 +100,8 @@ def main():
     print(func8())
     print("==FUNC9==")
     print(func9())
+    print("==FUNC10==")
+    print(func10(np.array([i for i in range(9)]), 3))
 
 
 if __name__ == "__main__":
