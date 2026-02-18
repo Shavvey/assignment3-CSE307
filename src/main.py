@@ -26,15 +26,42 @@ def func4(arr: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     last_two_cols = arr[:, 2:]
     return (first_two_rows, last_two_cols)
 
+
 def func5(arr: np.ndarray) -> np.ndarray:
     arr[arr % 2 == 1] = -1
     return arr
 
-def func6(arr: np.ndarray):
-    arr[arr >= 5 and arr <= 10] = True
-    print(filter)
+
+def func6(arr: np.ndarray) -> np.ndarray:
+    values = np.array([])
+    # NOTE: apply boolean filter to 2D array is ambiguous
+    for elem in arr.flatten():  # flatten to 1D array
+        if elem >= 5 and elem <= 10:
+            values = np.append(values, [elem])
+    return values
 
 
+def func7(arr: np.ndarray):
+    temp = arr[:, 0].copy()  # copy col into new object
+    arr[:, 0] = arr[:, 1]  # set first to second
+    arr[:, 1] = temp  # set second to copy of first (stored in temp)
+    return arr
+
+
+def func8() -> np.ndarray:
+    arr = np.zeros((8, 8))
+    arr[1::2, 0::2] = 1  # odd rows and even cols
+    arr[0::2, 1::2] = 1 # even rows and odd cols
+    return arr
+
+def func9() -> np.ndarray:
+    arr = np.zeros((5,5))
+    arr[0, :] = 1
+    arr[-1, :] = 1
+    arr[:, 0] = 1
+    arr[:, -1] = 1
+    return arr
+    
 def main():
     print("==FUNC1==")
     arr = func1()
@@ -56,6 +83,12 @@ def main():
     print(odds_removed)
     print("==FUNC6==")
     print(func6(func1()))
+    print("==FUNC7==")
+    print(func7(func1()))
+    print("==FUNC8==")
+    print(func8())
+    print("==FUNC9==")
+    print(func9())
 
 
 if __name__ == "__main__":
