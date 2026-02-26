@@ -15,16 +15,18 @@ def func2(arr: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
     return (first_row, last_col)
 
 
-def func3(arr: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+def func3(arr: np.ndarray) -> np.ndarray:
     odd_rows = arr[1::2, :]
     even_cols = arr[:, 0::2]
-    return (odd_rows, even_cols)
+    odd_rows = np.append(odd_rows, np.transpose(even_cols), axis=0)
+    return odd_rows
 
 
-def func4(arr: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+def func4(arr: np.ndarray) -> np.ndarray:
     first_two_rows = arr[0:2, :]
     last_two_cols = arr[:, 2:]
-    return (first_two_rows, last_two_cols)
+    first_two_rows = np.append(first_two_rows, np.transpose(last_two_cols), axis=0)
+    return first_two_rows
 
 
 def func5(arr: np.ndarray) -> np.ndarray:
@@ -81,14 +83,12 @@ def main():
     print("==FUNC2==")
     print(first_row)
     print(last_col)
-    odd_rows, even_cols = func3(arr)
     print("==FUNC3==")
-    print(odd_rows)
-    print(even_cols)
-    first_two_rows, last_two_cols = func4(arr)
+    func3_arr = func3(arr)
+    print(func3_arr)
     print("==FUNC4==")
-    print(first_two_rows)
-    print(last_two_cols)
+    func4_arr = func4(arr)
+    print(func4_arr)
     print("==FUNC5==")
     odds_removed = func5(arr)
     print(odds_removed)
